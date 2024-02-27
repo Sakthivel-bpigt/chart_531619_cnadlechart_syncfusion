@@ -43,3 +43,22 @@ class ChartSampleData {
   num? open;
   num? close;
 }
+
+class Candle {
+  Candle(this.open, this.high, this.low, this.close, this.volume, this.date);
+
+  num open;
+  num high;
+  num low;
+  num close;
+  num volume;
+  DateTime date;
+
+  Candle.fromJson(Map<String, dynamic> json)
+      : open = json['open'],
+        high = json['high'],
+        low = json['low'],
+        close = json['close'],
+        volume = json['volume'],
+        date = DateTime.fromMillisecondsSinceEpoch(json['date']);
+}
