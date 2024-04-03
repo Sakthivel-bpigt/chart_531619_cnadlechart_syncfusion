@@ -58,7 +58,24 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Candle Chart')),
+      appBar: AppBar(
+        title: const Text('Candle Chart'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _zoomPanBehavior!.zoomIn();
+            },
+            icon: const Icon(Icons.add),
+            color: Colors.orange,
+          ),
+          IconButton(
+            onPressed: () {
+              _zoomPanBehavior!.zoomOut();
+            },
+            icon: const Icon(Icons.remove, color: Colors.orange),
+          ),
+        ],
+      ),
       body: rebuildChart(),
     );
   }
