@@ -1,7 +1,7 @@
+import 'package:chart_531619_cnadlechart/week_candle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dataSource.dart';
-import 'oneMinuteCandles.dart';
 
 void main() {
   return runApp(_App());
@@ -31,26 +31,28 @@ class _HomePageState extends State<_HomePage> {
   ZoomPanBehavior? _zoomPanBehavior;
   List<TechnicalIndicator<dynamic, dynamic>> indicators = [
     // BollingerBandIndicator<dynamic, dynamic>(period: 3),
-    EmaIndicator<dynamic, dynamic>(valueField: 'high')
+    // EmaIndicator<dynamic, dynamic>(valueField: 'high')
   ];
 
   @override
   void initState() {
-    for (var element in oneMinuteCandleList) {
+    for (var element in oneWeekCandleList) {
       Map<String, dynamic> c = element;
       candles.add(Candle.fromJson(c));
     }
     _trackballBehavior = TrackballBehavior(
-      enable: true,
-      // activationMode: ActivationMode.singleTap,
-      tooltipSettings: const InteractiveTooltip(enable: true),
-      shouldAlwaysShow: true,
-    );
+        // enable: true,
+        // activationMode: ActivationMode.singleTap,
+        // tooltipSettings: const InteractiveTooltip(enable: true),
+        // shouldAlwaysShow: true,
+        );
     _zoomPanBehavior = ZoomPanBehavior(
       enablePanning: true,
       enableDoubleTapZooming: true,
       enableMouseWheelZooming: true,
+      maximumZoomLevel: 0,
       zoomMode: ZoomMode.x,
+      enablePinching: true,
     );
     super.initState();
   }
@@ -85,7 +87,7 @@ class _HomePageState extends State<_HomePage> {
       indicators: indicators,
       primaryXAxis: const DateTimeCategoryAxis(
         autoScrollingDelta: 100,
-        autoScrollingDeltaType: DateTimeIntervalType.minutes,
+        autoScrollingDeltaType: DateTimeIntervalType.auto,
         // Determines whether the axis be scrolled from the start or end position.
         autoScrollingMode: AutoScrollingMode.end,
       ),
@@ -106,20 +108,15 @@ class _HomePageState extends State<_HomePage> {
           closeValueMapper: (Candle candle, int index) => candle.close,
           trendlines: <Trendline>[
             Trendline(
-              type: TrendlineType.linear,
-              width: 3,
-              color: Colors.red,
-              dashArray: <double>[5, 5],
-              opacity: 0.7,
-              // isVisibleOnLegend: true,
-              name: 'Linear',
-            ),
+                type: TrendlineType.movingAverage,
+                color: Colors.purpleAccent,
+                enableTooltip: true),
           ],
         ),
       ],
       trackballBehavior: _trackballBehavior,
       zoomPanBehavior: _zoomPanBehavior,
-      // tooltipBehavior: TooltipBehavior(enable: true, shared: true),
+      tooltipBehavior: TooltipBehavior(enable: true, shared: true),
     );
   }
 }
