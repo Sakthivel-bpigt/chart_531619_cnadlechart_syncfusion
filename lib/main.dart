@@ -30,7 +30,7 @@ class _HomePageState extends State<_HomePage> {
   TrackballBehavior? _trackballBehavior;
   ZoomPanBehavior? _zoomPanBehavior;
   List<TechnicalIndicator<dynamic, dynamic>> indicators = [
-    // BollingerBandIndicator<dynamic, dynamic>(period: 3),
+    BollingerBandIndicator<dynamic, dynamic>(period: 3),
     // EmaIndicator<dynamic, dynamic>(valueField: 'high')
   ];
 
@@ -87,7 +87,7 @@ class _HomePageState extends State<_HomePage> {
       indicators: indicators,
       primaryXAxis: const DateTimeCategoryAxis(
         autoScrollingDelta: 100,
-        autoScrollingDeltaType: DateTimeIntervalType.auto,
+        autoScrollingDeltaType: DateTimeIntervalType.days,
         // Determines whether the axis be scrolled from the start or end position.
         autoScrollingMode: AutoScrollingMode.end,
       ),
@@ -106,11 +106,11 @@ class _HomePageState extends State<_HomePage> {
           highValueMapper: (Candle candle, int index) => candle.high,
           openValueMapper: (Candle candle, int index) => candle.open,
           closeValueMapper: (Candle candle, int index) => candle.close,
-          trendlines: <Trendline>[
-            Trendline(
-                type: TrendlineType.movingAverage,
-                color: Colors.purpleAccent,
-                enableTooltip: true),
+          trendlines: const <Trendline>[
+            // Trendline(
+            //     type: TrendlineType.movingAverage,
+            //     color: Colors.purpleAccent,
+            //     enableTooltip: true),
           ],
         ),
       ],
