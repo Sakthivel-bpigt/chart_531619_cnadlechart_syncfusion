@@ -29,10 +29,7 @@ class _HomePageState extends State<_HomePage> {
   List<Candle> candles = [];
   TrackballBehavior? _trackballBehavior;
   ZoomPanBehavior? _zoomPanBehavior;
-  List<TechnicalIndicator<dynamic, dynamic>> indicators = [
-    BollingerBandIndicator<dynamic, dynamic>(period: 3),
-    // EmaIndicator<dynamic, dynamic>(valueField: 'high')
-  ];
+  List<TechnicalIndicator<dynamic, dynamic>> indicators = [];
 
   @override
   void initState() {
@@ -54,6 +51,17 @@ class _HomePageState extends State<_HomePage> {
       zoomMode: ZoomMode.x,
       enablePinching: true,
     );
+    indicators = [
+      BollingerBandIndicator<dynamic, dynamic>(
+        period: 3,
+
+        ///The BollingerBandIndicator will render when mapping the series
+        ///name or setting the dataSource in the BollingerBandIndicator.
+        ///This is the behavior of the BollingerBandIndicator.
+        seriesName: 'CandleSeries',
+        // dataSource: candles,
+      ),
+    ];
     super.initState();
   }
 
@@ -99,6 +107,11 @@ class _HomePageState extends State<_HomePage> {
       series: <CartesianSeries<Candle, DateTime>>[
         CandleSeries(
           enableSolidCandles: true,
+
+          ///The BollingerBandIndicator will render when mapping the series
+          ///name or setting the dataSource in the BollingerBandIndicator.
+          ///This is the behavior of the BollingerBandIndicator.
+          name: 'CandleSeries',
           // showIndicationForSameValues: true,
           dataSource: candles,
           xValueMapper: (Candle candle, int index) => candle.date,
